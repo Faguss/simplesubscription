@@ -31,9 +31,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (!$request->has(['website','title','description']))
-            return response(null, 400);
+        $fields = ['website','title','description'];
 
+        foreach($fields as $field) {
+            if (!$request->filled($field))
+                return response(["error_text"=>"Missing input '$field'"], 400);
+
+            $request->$field = trim($request->$field);
+
+            if (strlen($request->$field) > 255)
+                return response(["error_text"=>"Input '$field' too long"], 400);
+        }
+        
         $website = Website::where('title',$request->website)->first();
         if ($website) {
             $post = new Post();
@@ -41,9 +50,9 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->description = $request->description;
             $result = $post->save();
-            return response(null, 200);
+            return response(["error_text"=>""], 200);
         } else 
-            return response(null, 400);
+            return response(["error_text"=>"Incorrect website name"], 400);
     }
 
     /**

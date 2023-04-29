@@ -1,4 +1,4 @@
-Made with PHP 8.2.0 and Laravel 10.8.0
+Excercise subscription service. Made with PHP 8.2.0 and Laravel 10.8.0
 
 ## Installing
 
@@ -7,7 +7,7 @@ Made with PHP 8.2.0 and Laravel 10.8.0
 - In the .env file set DB_CONNECTION=mysql
 - In the .env file configure mailer settings
 - In the terminal run php artisan migrate --seed
-- In the terminal run php artisan queue:work
+- In the terminal run php artisan queue:work --rest=1
 
 ## Testing
 

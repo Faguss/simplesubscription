@@ -20,7 +20,7 @@ class PostFactory extends Factory
         return [
             'website_id' => Website::all()->random()->id,
             'title' => fake()->text(10),
-            'description' => fake()->paragraph(),
+            'description' => substr(fake()->paragraph(),0,255)
         ];
     }
 }

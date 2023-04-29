@@ -15,18 +15,20 @@ use Illuminate\Support\Facades\Mail;
 class SendEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $post;
     protected $email;
-    protected $website;
+    protected $post_title;
+    protected $post_description;
+    protected $website_title;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(Post $post, $email, $website)
+    public function __construct($email, $post_title, $post_description, $website_title)
     {
-        $this->post = $post;
-        $this->email = $email;
-        $this->website = $website;
+        $this->email            = $email;
+        $this->post_title       = $post_title;
+        $this->post_description = $post_description;
+        $this->website_title    = $website_title;
     }
 
     /**
@@ -34,6 +36,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->email)->send(new \App\Mail\PostNotification($this->website,$this->post->title,$this->post->description));
+        Mail::to($this->email)->send(new \App\Mail\PostNotification($this->website_title,$this->post_title,$this->post_description));
     }
 }

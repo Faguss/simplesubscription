@@ -32,7 +32,7 @@ class SubscriberController extends Controller
             'email' => $request->email
         ]);
 
-        $subscriber->websites()->attach($website->id);
+        $subscriber->websites()->sync($website->id);
         return response()->json(null, 200);
     }
 

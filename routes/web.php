@@ -16,7 +16,7 @@ use App\Http\Controllers\SubscriberController;
 
 Route::get('addpost', function() {
     $response = Http::post('http://simplesubscription.test/api/post', [
-        'website' => \App\Models\Website::select('title')->inRandomOrder()->first(),
+        'website' => \App\Models\Website::select('title')->inRandomOrder()->first()->title,
         'title' => fake()->text(10),
         'description' => fake()->text(60),
     ]);
@@ -25,7 +25,7 @@ Route::get('addpost', function() {
 
 Route::get('addsubscriber', function() {
     $response = Http::post('http://simplesubscription.test/api/subscriber', [
-        'website' => \App\Models\Website::select('title')->inRandomOrder()->first(),
+        'website' => \App\Models\Website::select('title')->inRandomOrder()->first()->title,
         'email' => 'test@gmail.com'
     ]);
     return $response;
